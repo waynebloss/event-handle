@@ -1,4 +1,4 @@
-/// <reference path="../src/polyfill.d.ts" />
+/// <reference path="src/polyfill.d.ts" />
 /** Simple event system with closures.
  * @example
  * let demoStarted = EventHandle.create();
