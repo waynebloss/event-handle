@@ -9,6 +9,12 @@
   "scripts": {
     "build": "tsc"
   },
+  "files": [
+    "dist",
+    "LICENSE.md",
+    "package.json",
+    "README.md"
+  ],
   "devDependencies": {
     "typescript": "^2.9.1"
   }
