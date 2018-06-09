@@ -1,6 +1,5 @@
 "use strict";
 /// <reference path="polyfill.d.ts" />
-Object.defineProperty(exports, "__esModule", { value: true });
 // NOTE: The default export is known as EventHandleExports internally, so as
 // not to clash with the type, also named EventHandle.
 /** Simple event system with closures.
@@ -123,7 +122,6 @@ var EventHandleExports = {
         return fn && typeof fn === 'function' && typeof fn.handle === 'function';
     },
 };
-exports.default = EventHandleExports;
 function tryRemoveHandler(handlers, handler) {
     if (!handlers)
         return false;
@@ -133,3 +131,4 @@ function tryRemoveHandler(handlers, handler) {
         handlers.splice(removeIndex, 1);
     return found;
 }
+module.exports = EventHandleExports;
