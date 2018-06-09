@@ -1,0 +1,15 @@
+{
+  "name": "event-handle",
+  "version": "1.0.0",
+  "description": "Events with closures.",
+  "license": "MIT",
+  "author": "Wayne Bloss <waynebloss@gmail.com>",
+  "repository": "https://github.com/rebjs/eevent-handle",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^2.9.1"
+  }
+}
