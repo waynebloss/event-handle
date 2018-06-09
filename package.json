@@ -4,7 +4,7 @@
   "description": "Events with closures.",
   "license": "MIT",
   "author": "Wayne Bloss <waynebloss@gmail.com>",
-  "repository": "https://github.com/rebjs/eevent-handle",
+  "repository": "https://github.com/rebjs/event-handle",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc"
