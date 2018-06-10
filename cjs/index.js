@@ -1,5 +1,4 @@
 "use strict";
-/// <reference path="polyfill.d.ts" />
 // NOTE: The default export is known as EH internally, so as
 // not to clash with the type named EventHandle.
 /** Simple event system with closures.
@@ -57,65 +56,65 @@ var EH = {
             if (after)
                 after.apply(void 0, args);
         }
-        return Object.assign(eventHandle, {
-            /** Event identifier. */
-            id: id,
-            /** Adds an event handler and returns its removal function.
-             * @param {EventHandler} handler Event handler function.
-             * @param {EventHandlerOptions} [options] Event handler options.
+        var eh = eventHandle;
+        /** Event identifier. */
+        eh.id = id;
+        /** Adds an event handler and returns its removal function.
+         * @param {EventHandler} handler Event handler function.
+         * @param {EventHandlerOptions} [options] Event handler options.
+         */
+        eh.handle = function handle(handler, options) {
+            var once;
+            var prepend;
+            if (options) {
+                once = options.once;
+                prepend = options.prepend;
+            }
+            function handleOnce() {
+                var args = [];
+                for (var _i = 0; _i < arguments.length; _i++) {
+                    args[_i] = arguments[_i];
+                }
+                if (tryRemoveHandler(handlers, entry)) {
+                    if (handlers.length === 0)
+                        handlers = undefined;
+                    handler.apply(void 0, args);
+                }
+            }
+            var entry = once ? handleOnce : handler;
+            if (!handlers) {
+                handlers = [entry];
+            }
+            else if (prepend) {
+                handlers.unshift(entry);
+            }
+            else {
+                handlers.push(entry);
+            }
+            /** Removes the event handler, returns `true` if found.
+             * @returns {boolean} If the handler was found then `true` else `false`.
              */
-            handle: function (handler, options) {
-                var once;
-                var prepend;
-                if (options) {
-                    once = options.once;
-                    prepend = options.prepend;
-                }
-                function handleOnce() {
-                    var args = [];
-                    for (var _i = 0; _i < arguments.length; _i++) {
-                        args[_i] = arguments[_i];
-                    }
-                    if (tryRemoveHandler(handlers, entry)) {
-                        if (handlers.length === 0)
-                            handlers = undefined;
-                        handler.apply(void 0, args);
-                    }
-                }
-                var entry = once ? handleOnce : handler;
-                if (!handlers) {
-                    handlers = [entry];
-                }
-                else if (prepend) {
-                    handlers.unshift(entry);
+            return function remove() {
+                if (tryRemoveHandler(handlers, entry)) {
+                    if (handlers.length === 0)
+                        handlers = undefined;
+                    return true;
                 }
                 else {
-                    handlers.push(entry);
+                    return false;
                 }
-                /** Removes the event handler, returns `true` if found.
-                 * @returns {boolean} If the handler was found then `true` else `false`.
-                 */
-                return function remove() {
-                    if (tryRemoveHandler(handlers, entry)) {
-                        if (handlers.length === 0)
-                            handlers = undefined;
-                        return true;
-                    }
-                    else {
-                        return false;
-                    }
-                };
-            },
+            };
+        },
             /** Returns the number of event handlers. */
-            handlerCount: function () {
+            eh.handlerCount = function handlerCount() {
                 return handlers ? handlers.length : 0;
-            },
-            /** Removes all event handlers. */
-            removeAllHandlers: function () {
-                if (handlers)
-                    handlers.length = 0;
-            },
-        });
+            };
+        /** Removes all event handlers. */
+        eh.removeAllHandlers = function removeAllHandlers() {
+            if (handlers)
+                handlers.length = 0;
+        };
+        return eh;
     },
     /** Returns true if `fn` is a function created by `create`. */
     isEventHandle: function (fn) {
