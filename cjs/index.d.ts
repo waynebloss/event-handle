@@ -1,3 +1,17 @@
+/** Returns a function that triggers an event. The function has members such
+ * as `.handle()` to add a handler, `.id` (a string), `.handlerCount()` and
+ * `.removeAllHandlers()`.
+ * @example
+ * let demoStarted = EventHandle.create();
+ * let remove = demoStarted.handle((...args) => console.log('Handled event.'),
+ *   { prepend: false, once: false });
+ * demoStarted(...args);  // Call event handlers.
+ * remove();       // Remove the handler.
+ * @param {EventHandleConfiguration|string} [config] Event id or configuration.
+ */
+export declare function createEventHandle(config?: EventHandleConfiguration | string): EventHandle;
+/** Returns true if `fn` is a function created by `create`. */
+export declare function isEventHandle(fn: any): fn is EventHandle;
 /** Simple event system with closures.
  * @example
  * let demoStarted = EventHandle.create();
@@ -7,24 +21,12 @@
  * remove();       // Remove the handler.
  */
 declare const EH: {
-    /** Returns a function that triggers an event. The function has members such
-     * as `.handle()` to add a handler, `.id` (a string), `.handlerCount()` and
-     * `.removeAllHandlers()`.
-     * @example
-     * let demoStarted = EventHandle.create();
-     * let remove = demoStarted.handle((...args) => console.log('Handled event.'),
-     *   { prepend: false, once: false });
-     * demoStarted(...args);  // Call event handlers.
-     * remove();       // Remove the handler.
-     * @param {EventHandleConfiguration|string} [config] Event id or configuration.
-     */
-    create(config?: string | EventHandleConfiguration | undefined): EventHandle;
-    /** Returns true if `fn` is a function created by `create`. */
-    isEventHandle(fn: any): fn is EventHandle;
+    create: typeof createEventHandle;
+    isEventHandle: typeof isEventHandle;
 };
 export default EH;
 /** Core function that triggers the event. */
-export type EventHandleFunction = (...args: any[]) => void;
+export declare type EventHandleFunction = (...args: any[]) => void;
 /** Function with extended properties that triggers the event. */
 export interface EventHandle extends EventHandleFunction {
     handle: (handler: EventHandler, options?: EventHandlerOptions) => EventHandlerRemover;
@@ -41,7 +43,7 @@ export interface EventHandleConfiguration {
     after?(...args: any[]): void;
 }
 /** Function that will handle an event. */
-export type EventHandler = (...args: any[]) => void;
+export declare type EventHandler = (...args: any[]) => void;
 export interface EventHandlerOptions {
     /** True if the handler should be called only once.  */
     once?: boolean;
@@ -49,4 +51,4 @@ export interface EventHandlerOptions {
     prepend?: boolean;
 }
 /** Removes an `EventHandler` from its `EventHandle` so it won't be called. */
-export type EventHandlerRemover = () => boolean;
+export declare type EventHandlerRemover = () => boolean;
