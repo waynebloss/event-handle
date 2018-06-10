@@ -15,7 +15,7 @@ let remove = demoStarted.handle(
   // { prepend: false, once: false }, // with options
 );
 
-// Call handlers.
+// Trigger the event, calling all handlers.
 demoStarted(/* ...args */);
 
 // Remove the handler.
