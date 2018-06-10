@@ -1,6 +1,7 @@
 "use strict";
 // NOTE: The default export is known as EH internally, so as
 // not to clash with the type named EventHandle.
+Object.defineProperty(exports, "__esModule", { value: true });
 /** Simple event system with closures.
  * @example
  * let demoStarted = EventHandle.create();
@@ -121,6 +122,7 @@ var EH = {
         return fn && typeof fn === 'function' && typeof fn.handle === 'function';
     },
 };
+exports.default = EH;
 function tryRemoveHandler(handlers, handler) {
     if (!handlers)
         return false;
@@ -130,4 +132,3 @@ function tryRemoveHandler(handlers, handler) {
         handlers.splice(removeIndex, 1);
     return found;
 }
-module.exports = EH;
