@@ -1,6 +1,4 @@
 "use strict";
-// NOTE: The default export is known as EH internally, so as
-// not to clash with the type named EventHandle.
 Object.defineProperty(exports, "__esModule", { value: true });
 /** Simple event system with closures.
  * @example

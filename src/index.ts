@@ -1,6 +1,3 @@
-// NOTE: The default export is known as EH internally, so as
-// not to clash with the type named EventHandle.
-
 /** Simple event system with closures.
  * @example
  * let demoStarted = EventHandle.create();
