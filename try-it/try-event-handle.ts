@@ -1,7 +1,7 @@
 import {
   default as EventHandle,
   EventHandlerOptions,
-} from '../';
+} from '../cjs';
 
 export const Things = {
   e1: EventHandle.create('e1'),

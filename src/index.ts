@@ -1,7 +1,7 @@
 /// <reference path="polyfill.d.ts" />
 
-// NOTE: The default export is known as EventHandleExports internally, so as
-// not to clash with the type, also named EventHandle.
+// NOTE: The default export is known as EH internally, so as
+// not to clash with the type named EventHandle.
 
 /** Simple event system with closures.
  * @example
@@ -11,7 +11,7 @@
  * demoStarted(...args);  // Call event handlers.
  * remove();       // Remove the handler.
  */
-const EventHandleExports = {
+const EH = {
   /** Returns a function that triggers an event. The function has members such 
    * as `.handle()` to add a handler, `.id` (a string), `.handlerCount()` and 
    * `.removeAllHandlers()`.
@@ -23,11 +23,11 @@ const EventHandleExports = {
    * remove();       // Remove the handler.
    * @param {EventHandleConfiguration|string} [config] Event id or configuration.
    */
-  create(config?: EventHandleConfiguration | string): EventHandle {
-    let after: EventHandler | undefined;
-    let before: EventHandler | undefined;
+  create(config?: EH.EventHandleConfiguration | string): EH.EventHandle {
+    let after: EH.EventHandler | undefined;
+    let before: EH.EventHandler | undefined;
     let id: string | undefined;
-    let handlers: EventHandler[] | undefined;
+    let handlers: EH.EventHandler[] | undefined;
 
     if (config) {
       if (typeof config === 'string') {
@@ -45,7 +45,7 @@ const EventHandleExports = {
         // IMPORTANT: Copy array so handler-removal doesn't affect this loop.
         let safeHandlers = [].concat(handlers as any);
         const len = safeHandlers.length;
-        let handler: EventHandler;
+        let handler: EH.EventHandler;
         for (let i = 0; i < len; i++) {
           handler = safeHandlers[i];
           handler(...args);
@@ -61,7 +61,7 @@ const EventHandleExports = {
        * @param {EventHandler} handler Event handler function.
        * @param {EventHandlerOptions} [options] Event handler options.
        */
-      handle(handler: EventHandler, options?:EventHandlerOptions): EventHandlerRemover {
+      handle(handler: EH.EventHandler, options?:EH.EventHandlerOptions): EH.EventHandlerRemover {
         let once: boolean | undefined;
         let prepend: boolean | undefined;
         if (options) {
@@ -108,46 +108,48 @@ const EventHandleExports = {
     });
   },
   /** Returns true if `fn` is a function created by `create`. */
-  isEventHandle(fn: any): fn is EventHandle {
+  isEventHandle(fn: any): fn is EH.EventHandle {
     return fn && typeof fn === 'function' && typeof fn.handle === 'function';
   },
 }
-export = EventHandleExports;
+export = EH;
 
-/** Core function that triggers the event. */
-type EventHandleFunction = (...args: any[]) => void;
+namespace EH {
+  /** Core function that triggers the event. */
+  export type EventHandleFunction = (...args: any[]) => void;
 
-/** Function with extended properties that triggers the event. */
-interface EventHandle extends EventHandleFunction {
-  handle: (handler: EventHandler, options?:EventHandlerOptions) => EventHandlerRemover;
-  handlerCount: () => number;
-  id?:string;
-  removeAllHandlers: () => void;
+  /** Function with extended properties that triggers the event. */
+  export interface EventHandle extends EventHandleFunction {
+    handle: (handler: EventHandler, options?:EventHandlerOptions) => EventHandlerRemover;
+    handlerCount: () => number;
+    id?:string;
+    removeAllHandlers: () => void;
+  }
+
+  export interface EventHandleConfiguration {
+    /** Event identifier (typically a name). */
+    id?: string;
+    /** Function to be called before event handlers. */
+    before?(...args: any[]): void;
+    /** Function to be called after event handlers. */
+    after?(...args: any[]): void;
+  }
+
+  /** Function that will handle an event. */
+  export type EventHandler = (...args: any[]) => void;
+
+  export interface EventHandlerOptions {
+    /** True if the handler should be called only once.  */
+    once?: boolean;
+    /** True if the handler should be inserted first. */
+    prepend?: boolean;
+  }
+
+  /** Removes an `EventHandler` from its `EventHandle` so it won't be called. */
+  export type EventHandlerRemover = () => boolean;
 }
 
-interface EventHandleConfiguration {
-  /** Event identifier (typically a name). */
-  id?: string;
-  /** Function to be called before event handlers. */
-  before?(...args: any[]): void;
-  /** Function to be called after event handlers. */
-  after?(...args: any[]): void;
-}
-
-/** Function that will handle an event. */
-type EventHandler = (...args: any[]) => void;
-
-interface EventHandlerOptions {
-  /** True if the handler should be called only once.  */
-  once?: boolean;
-  /** True if the handler should be inserted first. */
-  prepend?: boolean;
-}
-
-/** Removes an `EventHandler` from its `EventHandle` so it won't be called. */
-type EventHandlerRemover = () => boolean;
-
-function tryRemoveHandler(handlers: EventHandler[] | undefined, handler: EventHandler) {
+function tryRemoveHandler(handlers: EH.EventHandler[] | undefined, handler: EH.EventHandler) {
   if (!handlers) return false;
   const removeIndex = handlers.indexOf(handler);
   const found = removeIndex > -1;

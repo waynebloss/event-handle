@@ -1,7 +1,7 @@
 "use strict";
 /// <reference path="polyfill.d.ts" />
-// NOTE: The default export is known as EventHandleExports internally, so as
-// not to clash with the type, also named EventHandle.
+// NOTE: The default export is known as EH internally, so as
+// not to clash with the type named EventHandle.
 /** Simple event system with closures.
  * @example
  * let demoStarted = EventHandle.create();
@@ -10,7 +10,7 @@
  * demoStarted(...args);  // Call event handlers.
  * remove();       // Remove the handler.
  */
-var EventHandleExports = {
+var EH = {
     /** Returns a function that triggers an event. The function has members such
      * as `.handle()` to add a handler, `.id` (a string), `.handlerCount()` and
      * `.removeAllHandlers()`.
@@ -131,4 +131,4 @@ function tryRemoveHandler(handlers, handler) {
         handlers.splice(removeIndex, 1);
     return found;
 }
-module.exports = EventHandleExports;
+module.exports = EH;
