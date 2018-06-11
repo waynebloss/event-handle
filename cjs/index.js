@@ -3,13 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /** Returns a function that triggers an event. The function has members such
  * as `.handle()` to add a handler, `.id` (a string), `.handlerCount()` and
  * `.removeAllHandlers()`.
- * @example
- * let demoStarted = EventHandle.create();
- * let remove = demoStarted.handle((...args) => console.log('Handled event.'),
- *   { prepend: false, once: false });
- * demoStarted(...args);  // Call event handlers.
- * remove();       // Remove the handler.
  * @param {EventHandleConfiguration|string} [config] Event id or configuration.
+ * @returns {function} The event.
  */
 function createEventHandle(config) {
     var after;
@@ -107,16 +102,20 @@ function createEventHandle(config) {
     return eh;
 }
 exports.createEventHandle = createEventHandle;
-/** Returns true if `fn` is a function created by `createEventHandle`. */
+/** Returns true if `fn` is a function created by `createEventHandle`.
+ * @param {function} fn The function to check.
+ * @returns {boolean} True if the given fn is an EventHandle.
+ */
 function isEventHandle(fn) {
     return fn && typeof fn === 'function' && typeof fn.handle === 'function';
 }
 exports.isEventHandle = isEventHandle;
 /**
  * Adds a handler to the given event.
- * @param evt The event to add a handler to.
- * @param handler The handler function for the event.
- * @param [options] Options for the handler.
+ * @param {function} evt The event to add a handler to.
+ * @param {function} handler The handler function for the event.
+ * @param {EventHandlerOptions} [options] Options for the handler.
+ * @returns {function} A function to remove the handler.
  */
 function onEvent(evt, handler, options) {
     if (!isEventHandle(evt)) {
@@ -125,20 +124,30 @@ function onEvent(evt, handler, options) {
     return evt.handle(handler, options);
 }
 exports.onEvent = onEvent;
-/** Simple event system with closures.
- * @example
- * let demoStarted = EventHandle.create();
- * let remove = demoStarted.handle((...args) => console.log('Handled event.'),
- *   { prepend: false, once: false });
- * demoStarted(...args);  // Call event handlers.
- * remove();       // Remove the handler.
- */
-var EH = {
+/** Events with closures. */
+var EventHandle = {
+    /** Returns a function that triggers an event. The function has members such
+     * as `.handle()` to add a handler, `.id` (a string), `.handlerCount()` and
+     * `.removeAllHandlers()`.
+     * @param {EventHandleConfiguration|string} [config] Event id or configuration.
+     * @returns {function} The event.
+     */
     create: createEventHandle,
+    /** Returns true if `fn` is a function created by `createEventHandle`.
+     * @param {function} fn The function to check.
+     * @returns {boolean} True if the given fn is an EventHandle.
+     */
     isEventHandle: isEventHandle,
+    /**
+     * Adds a handler to the given event.
+     * @param {function} evt The event to add a handler to.
+     * @param {function} handler The handler function for the event.
+     * @param {EventHandlerOptions} [options] Options for the handler.
+     * @returns {function} A function to remove the handler.
+     */
     on: onEvent,
 };
-exports.default = EH;
+exports.default = EventHandle;
 function tryRemoveHandler(handlers, handler) {
     if (!handlers)
         return false;

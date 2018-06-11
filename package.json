@@ -10,6 +10,8 @@
   "types": "cjs/index.d.ts",
   "scripts": {
     "build": "tsc",
+    "build-docs": "jsdoc2md cjs/index.js > docs/API.md",
+    "build-ts": "tsc",
     "example-node": "ts-node example/node-js",
     "test": "ts-node node_modules/jasmine/bin/jasmine"
   },
@@ -24,6 +26,7 @@
     "@types/jasmine": "^2.8.8",
     "jasmine": "^3.1.0",
     "jasmine-spec-reporter": "^4.2.1",
+    "jsdoc-to-markdown": "^4.0.1",
     "ts-node": "^6.1.0",
     "typescript": "^2.9.1"
   }
