@@ -2,42 +2,37 @@
 
 JavaScript event pattern with closures.
 
-## ES6 Import
+## Install
+
+`npm install event-handle` or `yarn add event-handle`
+
+## Import
 
 ```js
-import EventHandle from 'event-handle';
-```
-
-## ES6 / Babel Functional Import
-
-```js
-import {
+import EventHandle from 'event-handle'; // ES6
+import {              // ES6 Functional Import
   createEventHandle,
   isEventHandle,
+  onEvent,
 } from 'event-handle';
-```
-
-## Node.js Import
-
-```js
-const EventHandle = require('event-handle');
+const EventHandle = require('event-handle'); // CommonJS / Node.js
 ```
 
 ## Example
 
 ```js
-import EventHandle from 'event-handle';
-
 // Create an event.
 let demoStarted = EventHandle.create();
 
 // Create a handler.
-let remove = demoStarted.handle(
-  (...args) => {
-    console.log('Handled event.', args)
-  },
-  // options: { prepend: false, once: false },
-);
+EventHandle.on(demoStarted, (...args) => {
+  console.log('The demo started!', args)
+}); // options: , { prepend: false, once: false }
+
+// Create another handler.
+let remove = demoStarted.handle((...args) => {
+  console.log('Got it...', args);
+});
 
 // Trigger the event, calling all handlers.
 demoStarted('a','r','g','s');
@@ -52,4 +47,7 @@ console.log('isEventHandle: ', EventHandle.isEventHandle(demoStarted));
 console.log('removeAllHandlers: ', demoStarted.removeAllHandlers());
 ```
 
-_See also:_ Test code in `spec/index.spec.ts`
+_See also:_ 
+
+- Test code in `spec/index.spec.ts`
+- Example code in `examples/`
