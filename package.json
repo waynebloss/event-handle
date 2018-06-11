@@ -1,6 +1,6 @@
 {
   "name": "event-handle",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Events with closures.",
   "license": "MIT",
   "author": "Wayne Bloss <waynebloss@gmail.com>",
