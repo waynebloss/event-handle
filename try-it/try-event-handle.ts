@@ -1,24 +1,21 @@
-// import EventHandle from '../cjs'; // This works...
-import {
-  createEventHandle,
-  isEventHandle,
-} from '../cjs';
+import EventHandle from '../cjs';
 
-export const Things = {
-  e1: createEventHandle('e1'), // or EventHandle.create()
-  e2: createEventHandle('e2'),
+export const Foo = {
+  event1: EventHandle.create('event1'),
+  event2: EventHandle.create('event2'),
 };
 
-console.log('EventHandle.isEventHandle(Things.e1): ', isEventHandle(Things.e1)); // or EventHandle.isEventHandle()
-console.log('EventHandle.isEventHandle(Things.e2): ', isEventHandle(Things.e2));
+EventHandle.on(Foo.event1, () => console.log('Event 1.'));
+EventHandle.on(Foo.event2, () => console.log('Event 2.'));
 
-Things.e1.handle(() => console.log('HELLO!'));
-Things.e2.handle(() => console.log('GOODBYE.'), { once: true });
+Foo.event1.handle(() => console.log('HELLO!'));
+Foo.event2.handle(() => console.log('GOODBYE.'), { once: true });
 
-const opt = { prepend: true };
-Things.e2.handle(()=> console.log('ayyyy!'), opt);
+EventHandle.on(Foo.event2, ()=> {
+  console.log('** PRIORITY Event 2! **')
+}, { prepend: true });
 
-Things.e1();
-Things.e1();
-Things.e2();
-Things.e2();
+Foo.event1();
+Foo.event1();
+Foo.event2();
+Foo.event2();
