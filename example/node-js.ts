@@ -1,6 +1,6 @@
 import EventHandle from '../cjs';
 
-export const Foo = {
+const Foo = {
   event1: EventHandle.create('event1'),
   event2: EventHandle.create('event2'),
 };
