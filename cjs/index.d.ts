@@ -10,8 +10,15 @@
  * @param {EventHandleConfiguration|string} [config] Event id or configuration.
  */
 export declare function createEventHandle(config?: EventHandleConfiguration | string): EventHandle;
-/** Returns true if `fn` is a function created by `create`. */
+/** Returns true if `fn` is a function created by `createEventHandle`. */
 export declare function isEventHandle(fn: any): fn is EventHandle;
+/**
+ * Adds a handler to the given event.
+ * @param evt The event to add a handler to.
+ * @param handler The handler function for the event.
+ * @param [options] Options for the handler.
+ */
+export declare function onEvent(evt: EventHandle, handler: EventHandler, options?: EventHandlerOptions): EventHandlerRemover;
 /** Simple event system with closures.
  * @example
  * let demoStarted = EventHandle.create();
@@ -23,6 +30,7 @@ export declare function isEventHandle(fn: any): fn is EventHandle;
 declare const EH: {
     create: typeof createEventHandle;
     isEventHandle: typeof isEventHandle;
+    on: typeof onEvent;
 };
 export default EH;
 /** Core function that triggers the event. */

@@ -107,11 +107,24 @@ function createEventHandle(config) {
     return eh;
 }
 exports.createEventHandle = createEventHandle;
-/** Returns true if `fn` is a function created by `create`. */
+/** Returns true if `fn` is a function created by `createEventHandle`. */
 function isEventHandle(fn) {
     return fn && typeof fn === 'function' && typeof fn.handle === 'function';
 }
 exports.isEventHandle = isEventHandle;
+/**
+ * Adds a handler to the given event.
+ * @param evt The event to add a handler to.
+ * @param handler The handler function for the event.
+ * @param [options] Options for the handler.
+ */
+function onEvent(evt, handler, options) {
+    if (!isEventHandle(evt)) {
+        throw new Error('Expected event handler, got: ' + typeof evt);
+    }
+    return evt.handle(handler, options);
+}
+exports.onEvent = onEvent;
 /** Simple event system with closures.
  * @example
  * let demoStarted = EventHandle.create();
@@ -123,6 +136,7 @@ exports.isEventHandle = isEventHandle;
 var EH = {
     create: createEventHandle,
     isEventHandle: isEventHandle,
+    on: onEvent,
 };
 exports.default = EH;
 function tryRemoveHandler(handlers, handler) {

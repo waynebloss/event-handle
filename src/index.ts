@@ -98,6 +98,18 @@ export function createEventHandle(config?: EventHandleConfiguration | string): E
 export function isEventHandle(fn: any): fn is EventHandle {
   return fn && typeof fn === 'function' && typeof fn.handle === 'function';
 }
+/**
+ * Adds a handler to the given event.
+ * @param evt The event to add a handler to.
+ * @param handler The handler function for the event.
+ * @param [options] Options for the handler.
+ */
+export function onEvent(evt: EventHandle, handler: EventHandler, options?: EventHandlerOptions): EventHandlerRemover {
+  if (!isEventHandle(evt)) {
+    throw new Error('Expected event handler, got: ' + typeof evt);
+  }
+  return evt.handle(handler, options);
+}
 /** Simple event system with closures.
  * @example
  * let demoStarted = EventHandle.create();
@@ -108,7 +120,8 @@ export function isEventHandle(fn: any): fn is EventHandle {
  */
 const EH = {
   create: createEventHandle,
-  isEventHandle: isEventHandle,
+  isEventHandle,
+  on: onEvent,
 }
 export default EH;
 
