@@ -2,6 +2,29 @@
 
 JavaScript event pattern with closures.
 
+## ES6 Import
+
+```js
+import EventHandle from 'event-handle';
+```
+
+## ES6 / Babel Functional Import
+
+```js
+import {
+  createEventHandle,
+  isEventHandle,
+} from 'event-handle';
+```
+
+## Node.js Import
+
+```js
+const EventHandle = require('event-handle');
+```
+
+## Example
+
 ```js
 import EventHandle from 'event-handle';
 
@@ -29,23 +52,4 @@ console.log('isEventHandle: ', EventHandle.isEventHandle(demoStarted));
 console.log('removeAllHandlers: ', demoStarted.removeAllHandlers());
 ```
 
-## ES6 Import
-
-```js
-import EventHandle from 'event-handle';
-```
-
-## ES6 / Babel Functional Import
-
-```js
-import {
-  createEventHandle,
-  isEventHandle,
-} from 'event-handle';
-```
-
-## Node.js Import
-
-```js
-const EventHandle = require('event-handle');
-```
+_See also:_ Test code in `spec/index.spec.ts`
