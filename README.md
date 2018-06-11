@@ -1,6 +1,6 @@
 # EventHandle
 
-Simple event system with closures.
+JavaScript event pattern with closures.
 
 ```js
 import EventHandle from 'event-handle';
@@ -22,10 +22,10 @@ demoStarted(/* ...args */);
 remove();
 ```
 
-## Node.js Import
+## ES6 Import
 
 ```js
-const EventHandle = require('event-handle');
+import EventHandle from 'event-handle';
 ```
 
 ## ES6 / Babel Functional Import
@@ -35,4 +35,10 @@ import {
   createEventHandle,
   isEventHandle,
 } from 'event-handle';
+```
+
+## Node.js Import
+
+```js
+const EventHandle = require('event-handle');
 ```
