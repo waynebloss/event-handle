@@ -157,3 +157,15 @@ function tryRemoveHandler(handlers, handler) {
         handlers.splice(removeIndex, 1);
     return found;
 }
+//
+// Typedefs for jsdoc:
+//
+/** @typedef {object} EventHandleConfiguration
+ * @prop {string} [id] Event identifier (typically a name).
+ * @prop {function} [before] Function to be called before event handlers.
+ * @prop {function} [after] Function to be called after event handlers.
+ */
+/** @typedef {object} EventHandlerOptions
+ * @prop {boolean} [once] True if the handler should be called only once.
+ * @prop {boolean} [prepend] True if the handler should be inserted first.
+ */

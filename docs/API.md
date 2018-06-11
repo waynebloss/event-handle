@@ -1,4 +1,4 @@
-## Default Export
+## Members
 
 <dl>
 <dt><a href="#EventHandle">EventHandle</a></dt>
@@ -6,7 +6,7 @@
 </dd>
 </dl>
 
-## Function Exports
+## Functions
 
 <dl>
 <dt><a href="#createEventHandle">createEventHandle([config])</a> ⇒ <code>function</code></dt>
@@ -20,6 +20,15 @@ as <code>.handle()</code> to add a handler, <code>.id</code> (a string), <code>.
 <dt><a href="#onEvent">onEvent(evt, handler, [options])</a> ⇒ <code>function</code></dt>
 <dd><p>Adds a handler to the given event.</p>
 </dd>
+</dl>
+
+## Typedefs
+
+<dl>
+<dt><a href="#EventHandleConfiguration">EventHandleConfiguration</a> : <code>object</code></dt>
+<dd></dd>
+<dt><a href="#EventHandlerOptions">EventHandlerOptions</a> : <code>object</code></dt>
+<dd></dd>
 </dl>
 
 <a name="EventHandle"></a>
@@ -37,16 +46,14 @@ Events with closures.
 <a name="EventHandle.create"></a>
 
 ### EventHandle.create ⇒ <code>function</code>
-Returns a function that triggers an event. The function has members such
-as `.handle()` to add a handler, `.id` (a string), `.handlerCount()` and
-`.removeAllHandlers()`.
+Returns a function that triggers an event. The function has members suchas `.handle()` to add a handler, `.id` (a string), `.handlerCount()` and`.removeAllHandlers()`.
 
 **Kind**: static property of [<code>EventHandle</code>](#EventHandle)  
 **Returns**: <code>function</code> - The event.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [config] | <code>EventHandleConfiguration</code> \| <code>string</code> | Event id or configuration. |
+| [config] | [<code>EventHandleConfiguration</code>](#EventHandleConfiguration) \| <code>string</code> | Event id or configuration. |
 
 <a name="EventHandle.isEventHandle"></a>
 
@@ -72,21 +79,19 @@ Adds a handler to the given event.
 | --- | --- | --- |
 | evt | <code>function</code> | The event to add a handler to. |
 | handler | <code>function</code> | The handler function for the event. |
-| [options] | <code>EventHandlerOptions</code> | Options for the handler. |
+| [options] | [<code>EventHandlerOptions</code>](#EventHandlerOptions) | Options for the handler. |
 
 <a name="createEventHandle"></a>
 
 ## createEventHandle([config]) ⇒ <code>function</code>
-Returns a function that triggers an event. The function has members such
-as `.handle()` to add a handler, `.id` (a string), `.handlerCount()` and
-`.removeAllHandlers()`.
+Returns a function that triggers an event. The function has members suchas `.handle()` to add a handler, `.id` (a string), `.handlerCount()` and`.removeAllHandlers()`.
 
 **Kind**: global function  
 **Returns**: <code>function</code> - The event.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [config] | <code>EventHandleConfiguration</code> \| <code>string</code> | Event id or configuration. |
+| [config] | [<code>EventHandleConfiguration</code>](#EventHandleConfiguration) \| <code>string</code> | Event id or configuration. |
 
 <a name="isEventHandle"></a>
 
@@ -112,5 +117,28 @@ Adds a handler to the given event.
 | --- | --- | --- |
 | evt | <code>function</code> | The event to add a handler to. |
 | handler | <code>function</code> | The handler function for the event. |
-| [options] | <code>EventHandlerOptions</code> | Options for the handler. |
+| [options] | [<code>EventHandlerOptions</code>](#EventHandlerOptions) | Options for the handler. |
+
+<a name="EventHandleConfiguration"></a>
+
+## EventHandleConfiguration : <code>object</code>
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| [id] | <code>string</code> | Event identifier (typically a name). |
+| [before] | <code>function</code> | Function to be called before event handlers. |
+| [after] | <code>function</code> | Function to be called after event handlers. |
+
+<a name="EventHandlerOptions"></a>
+
+## EventHandlerOptions : <code>object</code>
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| [once] | <code>boolean</code> | True if the handler should be called only once. |
+| [prepend] | <code>boolean</code> | True if the handler should be inserted first. |
 
