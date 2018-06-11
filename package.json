@@ -13,6 +13,7 @@
     "build-docs": "jsdoc2md cjs/index.js > docs/API.md",
     "build-ts": "tsc",
     "example-node": "ts-node example/node-js",
+    "patch": "npm version patch",
     "test": "ts-node node_modules/jasmine/bin/jasmine"
   },
   "files": [
