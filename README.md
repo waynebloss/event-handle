@@ -20,6 +20,11 @@ demoStarted(/* ...args */);
 
 // Remove the handler.
 remove();
+
+// Other functions:
+console.log('id: ', demoStarted.id); // defined if create was passed an id.
+console.log('handlerCount: ', demoStarted.handlerCount());
+console.log('removeAllHandlers: ', demoStarted.removeAllHandlers());
 ```
 
 ## ES6 Import
