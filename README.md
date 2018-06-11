@@ -7,23 +7,25 @@ import EventHandle from 'event-handle';
 
 // Create an event.
 let demoStarted = EventHandle.create();
-console.log('isEventHandle: ', EventHandle.isEventHandle(demoStarted));
 
 // Create a handler.
 let remove = demoStarted.handle(
-  (...args) => console.log('Handled event.'), 
-  // { prepend: false, once: false }, // with options
+  (...args) => {
+    console.log('Handled event.', args)
+  },
+  // options: { prepend: false, once: false },
 );
 
 // Trigger the event, calling all handlers.
-demoStarted(/* ...args */);
+demoStarted('a','r','g','s');
 
 // Remove the handler.
-remove();
+console.log('removed: ', remove());
 
 // Other functions:
-console.log('id: ', demoStarted.id); // defined if create was passed an id.
 console.log('handlerCount: ', demoStarted.handlerCount());
+console.log('id: ', demoStarted.id); // defined if create was passed an id.
+console.log('isEventHandle: ', EventHandle.isEventHandle(demoStarted));
 console.log('removeAllHandlers: ', demoStarted.removeAllHandlers());
 ```
 
