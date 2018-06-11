@@ -4,7 +4,7 @@
   "description": "Events with closures.",
   "license": "MIT",
   "author": "Wayne Bloss <waynebloss@gmail.com>",
-  "repository": "https://github.com/rebjs/event-handle",
+  "repository": "https://github.com/waynebloss/event-handle",
   "main": "index.js",
   "browser": "cjs/index.js",
   "types": "cjs/index.d.ts",
